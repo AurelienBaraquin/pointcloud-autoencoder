@@ -3,6 +3,9 @@
 [tool.pytest.ini_options]
 # Ne chercher les tests que dans tests/, pas dans tout le dépôt.
 testpaths = ["tests"]
+# Ajoute la racine du dépôt au chemin d'import : `import src` marche quelle que soit
+# la façon de lancer pytest (`pytest` seul n'ajoute pas le dossier courant).
+pythonpath = ["."]
 
 [tool.ruff]
 # Le code doit tourner sur Python 3.10 : ruff ne proposera pas de syntaxe plus récente.
