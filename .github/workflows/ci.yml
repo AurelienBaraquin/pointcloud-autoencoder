@@ -1,0 +1,39 @@
+# Vérifie chaque PR et chaque push sur main : analyse statique (ruff) puis tests (pytest).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Le workflow ne fait que lire le dépôt : on ne lui donne pas d'autre droit.
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+          # Réutilise les paquets téléchargés lors des exécutions précédentes.
+          cache: pip
+          cache-dependency-path: requirements*.txt
+
+      # La version de torch par défaut embarque CUDA (plusieurs Go) alors que la CI
+      # n'a pas de GPU. On installe d'abord la version CPU, à la version figée dans
+      # requirements.txt ; pip la considère ensuite comme déjà satisfaite.
+      - name: Install torch (CPU)
+        run: pip install "$(grep '^torch==' requirements.txt)" --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: pytest
