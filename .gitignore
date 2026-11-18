@@ -221,3 +221,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Projet : poids des modèles entraînés (lourds, régénérables). results/ reste versionné.
+checkpoints/
