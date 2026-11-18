@@ -1,0 +1,20 @@
+# Configuration des outils de développement (pas de packaging pour l'instant).
+
+[tool.pytest.ini_options]
+# Ne chercher les tests que dans tests/, pas dans tout le dépôt.
+testpaths = ["tests"]
+
+[tool.ruff]
+# Le code doit tourner sur Python 3.10 : ruff ne proposera pas de syntaxe plus récente.
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",   # erreurs de style PEP 8
+    "F",   # erreurs probables : import inutilisé, variable non définie...
+    "I",   # imports triés
+    "B",   # pièges courants (ex. argument par défaut mutable)
+    "UP",  # syntaxe moderne pour la version de Python ciblée
+    "NPY", # bonnes pratiques NumPy (ex. ancienne API np.random.seed)
+]

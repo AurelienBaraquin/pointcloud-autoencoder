@@ -8,6 +8,23 @@ Toutes les données sont générées par le code, rien n'est téléchargé :
 - **formes pleines** : cubes, cylindres ;
 - **pièces minces** : plaques pliées, coques courbes.
 
+## Installation
+
+Python 3.10 ou plus récent.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+```
+
+`requirements.txt` contient ce qu'il faut pour exécuter le code, et `requirements-dev.txt` y ajoute les outils de vérification :
+
+```bash
+ruff check .   # analyse statique du code
+pytest         # tests
+```
+
 ## Arborescence prévue
 
 ```
